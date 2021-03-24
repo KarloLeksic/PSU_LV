@@ -24,23 +24,29 @@ for i in range(0, width):
         img2[i][t] = img[j][i]
         t -= 1
 
+"""
 #drugi nacin za rotaciju
-#height, width = img.shape
-#img90 = np.zeros((widht, height))
-#for j in range(0, weight):q
-#   img90 = [:, height - j - 1] = img[j, :]
+height, width = img.shape
+img90 = np.zeros((widht, height))
+for j in range(0, weight):q
+   img90 = [:, height - j - 1] = img[j, :]
+"""
 
+"""
 #zrcaljenje slike(ne radi) -> c)
-#for i in range(0, int(height/2)):
-#    temp = img[:, i] 
-#    img[:, i] = img[:, height -1- i]
-#    img[:, height - i-1] = temp
+for i in range(0, int(width/2)):
+    temp = img[:, i] 
+    img[:, i] = img[:, width -1- i]
+    img[:, width - i - 1] = temp
+"""
 
-# c)
-img_mirr = img2 = np.zeros((height, width), np.uint8)
+# c) zrcaljenje
+img_mirr = np.zeros((height, width), np.uint8)
+for i in range(0, width):
+    img_mirr[:, width - i - 1] = img[:, i]
 
-#smanjivanje rezolucije -> d)
+# d) smanjivanje rezolucije
 
 plt.figure(1)
-plt.imshow(img, cmap='gray', vmin=0, vmax=255)
+plt.imshow(img_mirr, cmap='gray', vmin=0, vmax=255)
 plt.show()    
