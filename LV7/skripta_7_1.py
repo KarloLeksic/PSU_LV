@@ -18,9 +18,9 @@ print('Train: X=%s, y=%s' % (x_train.shape, y_train.shape))
 print('Test: X=%s, y=%s' % (x_test.shape, y_test.shape))
 
 # TODO: prikazi nekoliko slika iz train skupa
-for i in range(3):
-    plt.imshow(x_train[i].reshape(28, 28), cmap='gray')    
-    plt.show()
+#for i in range(3):
+#    plt.imshow(x_train[i].reshape(28, 28), cmap='gray')    
+#    plt.show()
 
 # skaliranje slike na raspon [0,1]
 x_train_s = x_train.astype("float32") / 255
@@ -46,6 +46,8 @@ model = keras.Sequential(
         keras.Input(shape=input_shape),
         layers.Conv2D(32, kernel_size=(3,3), activation='relu'),
         layers.MaxPooling2D(pool_size=(2,2)),
+        layers.Conv2D(16, kernel_size=(3,3), activation='relu'),
+        layers.MaxPooling2D(pool_size=(2,2)),
         layers.Flatten(),
         layers.Dense(10, activation='softmax')
     ]
@@ -59,15 +61,15 @@ model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accura
 
 # TODO: provedi ucenje mreze
 
-model.fit(x_train, y_train, epoch=5, batch_size=32)
-y_pred=model.predict(x_test, batch_size=128)
+model.fit(x_train_s, y_train_s, epochs=1, batch_size=32)
+y_pred=model.predict(x_test_s, batch_size=128)
 
 # TODO: Prikazi test accuracy i matricu zabune
 
-cm = confusion_matrix(y_pred, y_test)
-print(cm)
-print("accuracy: ", accuracy_score(y_test, y_pred))
+#cm = confusion_matrix(y_test_s, y_pred)
+#print(cm)
+print("accuracy: ", accuracy_score(y_test_s, y_pred))
 
 # TODO: spremi model
 
-#model.save("my model")
+model.save('/home/profesor/PSU_LV/LV7')
